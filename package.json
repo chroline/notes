@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "cross-env IS_BUILD_STEP=true next build",
+    "analyze": "cross-env IS_BUILD_STEP=true ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -28,6 +29,7 @@
     "unist-builder": "^4.0.0"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^14.0.4",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/node": "^20",
     "@types/react": "^18",

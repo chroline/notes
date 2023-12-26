@@ -7,7 +7,6 @@ import getCourse from "~/lib/helpers/get-course";
 import getCourseContentList from "~/lib/helpers/get-course-content-list";
 import getCourseList from "~/lib/helpers/get-course-list";
 
-export const dynamic = "force-static";
 export const dynamicParams = false;
 
 export async function generateStaticParams() {

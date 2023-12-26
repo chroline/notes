@@ -44,7 +44,9 @@ export async function generateMetadata({
   };
 }
 
-const CodeBlock = dynamic(async () => (await import("~/components/ui/codeblock")).CodeBlock);
+const CodeBlock = dynamic(() => import("~/components/ui/codeblock").then(v => v.CodeBlock), {
+  ssr: false,
+});
 
 export default async function ContentPage({ params }: { params: { courseId: string; pageId: string } }) {
   const course = await getCourse(params.courseId);
@@ -83,14 +85,16 @@ export default async function ContentPage({ params }: { params: { courseId: stri
             code({ node, className, children, ...props }) {
               const match = /language-(\w+)/.exec(className || "");
 
-              return (
-                <CodeBlock
-                  key={Math.random()}
-                  language={(match && match[1]) || ""}
-                  value={String(children).replace(/\n$/, "")}
-                  {...props}
-                />
-              );
+              return <code {...props} />;
+
+              // return (
+              //   <CodeBlock
+              //     key={Math.random()}
+              //     language={(match && match[1]) || ""}
+              //     value={String(children).replace(/\n$/, "")}
+              //     {...props}
+              //   />
+              // );
             },
             h1: ContentHeading,
             h2(props) {
