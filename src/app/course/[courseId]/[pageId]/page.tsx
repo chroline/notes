@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
@@ -29,6 +30,19 @@ export async function generateStaticParams() {
   }
 
   return pages;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { courseId: string; pageId: string };
+}): Promise<Metadata> {
+  const course = await getCourse(params.courseId);
+
+  return {
+    title: `${course.short_title}: ${decodeURIComponent(params.pageId)} | Notes by Cole Gawin`,
+    description: `${course.description} Read notes for this class and more at notes.colegaw.in`,
+  };
 }
 
 export default async function ContentPage({ params }: { params: { courseId: string; pageId: string } }) {

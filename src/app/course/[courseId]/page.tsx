@@ -1,3 +1,5 @@
+import { Metadata } from "next";
+
 import { BackButton } from "~/components/back-button";
 import { Header } from "~/components/header";
 import { PageItem } from "~/components/page-item";
@@ -12,6 +14,15 @@ export async function generateStaticParams() {
   const courses = await getCourseList();
 
   return Object.keys(courses).map(courseId => ({ courseId }));
+}
+
+export async function generateMetadata({ params }: { params: { courseId: string } }): Promise<Metadata> {
+  const course = await getCourse(params.courseId);
+
+  return {
+    title: `${course.short_title} | Notes by Cole Gawin`,
+    description: `${course.description} Read notes for this class and more at notes.colegaw.in`,
+  };
 }
 
 export default async function CoursePage({ params }: { params: { courseId: string } }) {
