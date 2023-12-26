@@ -3,7 +3,8 @@ import type { Plugin, Transformer } from "unified";
 import { u } from "unist-builder";
 import { visit, Visitor, VisitorResult } from "unist-util-visit";
 
-export const REGEX = /(?:==|::)([^=]+)(?:==|::)/g;
+//export const REGEX = /(?:==|::)([^=]+)(?:==|::)/g;
+export const REGEX = /(==|::)(.*?)\1/g;
 
 export const highlightTextPlugin: Plugin<[any], Root> = () => {
   const constructMarker = (markedText: string | undefined): Paragraph => {
@@ -44,7 +45,7 @@ export const highlightTextPlugin: Plugin<[any], Root> = () => {
         children.push(textNode);
       }
 
-      const [_, markedText] = match;
+      const [_, __, markedText] = match;
       const markerNode = constructMarker(markedText);
       children.push(markerNode);
 
