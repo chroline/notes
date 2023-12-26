@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Kanit } from "next/font/google";
 
 import { Appbar } from "~/components/appbar";
+import { Footer } from "~/components/footer";
 
 import "./globals.css";
 
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className={"flex w-full justify-center px-4 py-12"}>
           <div className={"w-full max-w-2xl"}>{children}</div>
         </main>
+        <Footer />
       </body>
     </html>
   );
