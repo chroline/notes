@@ -3,7 +3,6 @@ import type { Plugin, Transformer } from "unified";
 import { u } from "unist-builder";
 import { visit, Visitor, VisitorResult } from "unist-util-visit";
 
-//export const REGEX = /(?:==|::)([^=]+)(?:==|::)/g;
 export const REGEX = /(==|::)(.*?)\1/g;
 
 export const highlightTextPlugin: Plugin<[any], Root> = () => {

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import dynamic from "next/dynamic";
 import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
@@ -7,14 +8,12 @@ import { BackButton } from "~/components/back-button";
 import { ContentHeading } from "~/components/content-heading";
 import { Header } from "~/components/header";
 import { MemoizedReactMarkdown } from "~/components/markdown";
-import { CodeBlock } from "~/components/ui/codeblock";
 import getCourse from "~/lib/helpers/get-course";
 import getCourseContent from "~/lib/helpers/get-course-content";
 import getCourseContentList from "~/lib/helpers/get-course-content-list";
 import getCourseList from "~/lib/helpers/get-course-list";
 import highlightPlugin from "~/lib/highlight-plugin";
 
-export const dynamic = "force-static";
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
@@ -44,6 +43,8 @@ export async function generateMetadata({
     description: `${course.description} Read notes for this class and more at notes.colegaw.in`,
   };
 }
+
+const CodeBlock = dynamic(async () => (await import("~/components/ui/codeblock")).CodeBlock);
 
 export default async function ContentPage({ params }: { params: { courseId: string; pageId: string } }) {
   const course = await getCourse(params.courseId);
